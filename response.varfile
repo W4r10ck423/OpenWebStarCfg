@@ -3,6 +3,6 @@ installationDate$Long=1633546612665
 sys.adminRights$Boolean=false
 sys.fileAssociation.extensions$StringArray="jnlp","jnlpx"
 sys.fileAssociation.launchers$StringArray="313","313"
-sys.installationDir=~/Applications/OpenWebStart
+sys.installationDir=/Applications/OpenWebStart
 sys.languageId=en
 userMode$Integer=0
