@@ -1,6 +1,6 @@
 # install4j response file for OpenWebStart 1.4.0
 installationDate$Long=1633546612665
-sys.adminRights$Boolean=false
+sys.adminRights$Boolean=true
 sys.fileAssociation.extensions$StringArray="jnlp","jnlpx"
 sys.fileAssociation.launchers$StringArray="313","313"
 sys.installationDir=/Applications/OpenWebStart
