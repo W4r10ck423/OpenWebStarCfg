@@ -7,7 +7,7 @@ installerURL=$(curl -sL https://api.github.com/repos/karakun/OpenWebStart/releas
 installerVersion=$(echo $installerURL | cut -d\/ -f8)
 installerFile=$(echo $installerURL | cut -d\/ -f9)
 echo "[INFO] The current installer version is $installerVersion"
-osascript -e 'display alert "DrsBee" message "Por favor, espere mientras se instalan los componentes requeridos\n(Esto puede tardar unos minutos)" buttons {"Aceptar"}'
+osascript -e 'display notification "(Este proceso puede tardar algunos minutos)" with title "DrsBee" subtitle "Por favor espere mientras se instalan los componentes requeridos" sound name "Submarine"'
 if test -f "$installerFile"; then
 	echo "[INFO] You have already downloaded the latest installer file... Now downloading installation config file..."
 else
