@@ -35,4 +35,5 @@ curl -L -o "DoSignatureLogin.jnlp" "$jnlpFile"
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile
 echo "[INFO] Running app for the first time..."
-open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
+firefox "$jnlpFile"
+#open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
