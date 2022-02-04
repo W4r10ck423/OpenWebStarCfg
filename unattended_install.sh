@@ -35,5 +35,5 @@ curl -L -o "DoSignatureLogin.jnlp" "$jnlpFile"
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile
 echo "[INFO] Running app for the first time..."
-open -a /Applications/Firefox.app "$jnlpFile" --args 
-#open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
+#open -a /Applications/Firefox.app "$jnlpFile" --args 
+open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
