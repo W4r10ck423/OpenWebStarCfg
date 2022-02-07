@@ -24,13 +24,12 @@ else
 	curl -L -o response.varfile https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/response.varfile
         
 fi
-
+echo "[INFO] Downloading aditional configuration file, please wait..."
+curl -L -o "$HOME/.config/icedtea-web/deployment.properties" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/deployment.properties"
 echo "[INFO] Performing unattended install, please wait..."
 hdiutil attach $installerFile 
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 hdiutil detach /Volumes/OpenWebStart
-echo "[INFO] Downloading aditional configuration file, please wait..."
-curl -L -o "$HOME/.config/icedtea-web/deployment.properties" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/deployment.properties"
 curl -L -o "DoSignatureLogin.jnlp" "$jnlpFile"
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile
