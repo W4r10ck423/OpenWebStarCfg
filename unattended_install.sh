@@ -41,5 +41,5 @@ done
 rm -rf handlers.json
 echo "[INFO] Running app for the first time..."
 killall firefox
-open -a /Applications/Firefox.app "https://dev.drsbee.com/es-CR/Account/Login" "$jnlpFile" --args 
+/Applications/Firefox.app/Contents/MacOS/firefox -new-tab "$jnlpFile" -new-tab "https://dev.drsbee.com/es-CR/Account/Login" 
 #open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
