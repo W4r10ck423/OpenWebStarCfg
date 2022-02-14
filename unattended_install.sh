@@ -45,7 +45,7 @@ do
 cp -rf handlers.json "$handlerFile"
 done
 echo "[INFO] Cleaning installation resources..."
-rm -rf response.varfile $installerFile libASEP11.dylib handlres.json #signer.xpi
+rm -rf response.varfile $installerFile libASEP11.dylib handlers.json 
 if test -f "install_drivers.sh"; then
 	rm -rf install_drivers.sh
 fi
