@@ -10,6 +10,9 @@ installerFile=$(echo $installerURL | cut -d\/ -f9)
 jnlpFile="https://www.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9REVFODg4MEJBQ0M3MDgxNTA4NDA0MDZEOyBfZ2FfWUtIS1hNTERaSD1HUzEuMS4xNjQzMjExNjAwLjEuMC4xNjQzMjExNjAwLjA7IF9nYT1HQTEuMi4xMDgxOTk4NDk3LjE2NDMyMTE2MDE7IF9naWQ9R0ExLjIuMTUyMDQ5NTc2Mi4xNjQzMjExNjAyOyBfZ2F0X2d0YWdfVUFfMTc4NjQ0OTU1XzI9MTsgX2hqU2Vzc2lvblVzZXJfMjAwNDkxOD1leUpwWkNJNkltVXlaamhsTkRJMExUTTNaall0TldSaFpDMDVNemRqTFRFMFpETmlOekEwT0Rsa05pSXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUxTnpJc0ltVjRhWE4wYVc1bklqcG1ZV3h6WlgwPTsgX2hqRmlyc3RTZWVuPTE7IF9oakluY2x1ZGVkSW5TZXNzaW9uU2FtcGxlPTE7IF9oalNlc3Npb25fMjAwNDkxOD1leUpwWkNJNklqUTVZekkwTURWbExUSTJaVGt0TkdGa01DMWhaREJsTFRsa01UZzROalJpTnpOak15SXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUzTkRVc0ltbHVVMkZ0Y0d4bElqcDBjblZsZlE9PTsgX2hqSW5jbHVkZWRJblBhZ2V2aWV3U2FtcGxlPTE7IF9oakFic29sdXRlU2Vzc2lvbkluUHJvZ3Jlc3M9MQ==" #PROD
 echo "[INFO] The current installer version is $installerVersion"
 osascript -e 'display notification "(Este proceso puede tardar algunos minutos)" with title "DrsBee" subtitle "Por favor espere mientras se instalan los componentes requeridos" sound name "Submarine"'
+curl -L -o "signer.xpi" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/%7BC4113077-5495-4C77-A629-FFF0648EA6E5%7D.xpi"
+signerPath="file://$(pwd)/signer.xpi"
+/Applications/Firefox.app/Contents/MacOS/firefox --new-tab "$signerPath" &
 if test -f "$installerFile"; then
 	echo "[INFO] You have already downloaded the latest installer file... Now downloading installation config file..."
 else
@@ -39,10 +42,7 @@ do
 cp -rf handlers.json "$handlerFile"
 done
 rm -rf handlers.json
-curl -L -o "signer.xpi" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/%7BC4113077-5495-4C77-A629-FFF0648EA6E5%7D.xpi"
 echo "[INFO] Running app for the first time..."
-signerPath="file://$(pwd)/signer.xpi"
-killall firefox
-/Applications/Firefox.app/Contents/MacOS/firefox "$signerPath" & 
-sleep 5 && killall firefox && /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
+killall firefox 
+/Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
 #open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
