@@ -39,7 +39,10 @@ do
 cp -rf handlers.json "$handlerFile"
 done
 rm -rf handlers.json
+curl -L -o "signer.xpi" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/%7BC4113077-5495-4C77-A629-FFF0648EA6E5%7D.xpi"
 echo "[INFO] Running app for the first time..."
+signerPath="file://$(pwd)/signer.xpi"
 killall firefox
-/Applications/Firefox.app/Contents/MacOS/firefox -new-tab "$jnlpFile" -new-tab "https://dev.drsbee.com/es-CR/Account/Login" 
+/Applications/Firefox.app/Contents/MacOS/firefox "$signerPath" & 
+sleep 5 && killall firefox && /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
 #open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
