@@ -13,7 +13,6 @@ osascript -e 'display notification "(Este proceso puede tardar algunos minutos)"
 curl -L -o "signer.xpi" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/%7BC4113077-5495-4C77-A629-FFF0648EA6E5%7D.xpi"
 signerPath="file://$(pwd)/signer.xpi"
 /Applications/Firefox.app/Contents/MacOS/firefox --new-tab "$signerPath" &
-rm -rf signer.xpi
 if test -f "$installerFile"; then
 	echo "[INFO] You have already downloaded the latest installer file... Now downloading installation config file..."
 else
@@ -35,7 +34,7 @@ hdiutil attach $installerFile
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 hdiutil detach /Volumes/OpenWebStart
 hdiutil detach /Volumes/DrsBeeWebStart
-if test -f "/Library/ApplicationSupport/Athena/libASEP11.dylib"; then
+if test -f '/Library/Application Support/Athena/libASEP11.dylib'; then
 	echo "[INFO] Card drivers already installed"
 else
 	curl -L -o "libASEP11.dylib" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/libASEP11.dylib"
@@ -51,7 +50,7 @@ for handlerFile in $(find "$HOME/Library/ApplicationSupport/Firefox/Profiles" | 
 do
 cp -rf handlers.json "$handlerFile"
 done
-rm -rf handlers.json
+rm -rf handlers.json signer.xpi
 echo "[INFO] Running app for the first time..."
 killall firefox 
 /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
