@@ -37,10 +37,9 @@ hdiutil detach /Volumes/DrsBeeWebStart
 if test -f '/Library/Application Support/Athena/libASEP11.dylib'; then
 	echo "[INFO] Card drivers already installed"
 else
-	curl -L -o "libASEP11.dylib" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/libASEP11.dylib"
-	cp -rf libASEP11.dylib /usr/local/lib/libASEP11.dylib
-	mkdir '/Library/Application Support/Athena'
-	sudo cp -rf libASEP11.dylib '/Library/Application Support/Athena/libASEP11.dylib'
+	curl -L -o install_drivers.sh "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/install_drivers.sh"
+	chmod +x install_drivers.sh
+	osascript -e 'do shell script "sudo -s ./install_drivers.sh" with administrator privileges'
 fi
 curl -L -o "handlers.json" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/handlers.json"
 for handlerFile in $(find "$HOME/Library/ApplicationSupport/Firefox/Profiles" | grep "handlers.json")
@@ -49,6 +48,9 @@ cp -rf handlers.json "$handlerFile"
 done
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile libASEP11.dylib handlres.json signer.xpi
+if test -f "install_drivers.sh"; then
+	rm -rf install_drivers.sh
+fi
 echo "[INFO] Running app for the first time..."
 killall firefox 
 nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
