@@ -12,7 +12,7 @@ echo "[INFO] The current installer version is $installerVersion"
 osascript -e 'display notification "(Este proceso puede tardar algunos minutos)" with title "DrsBee" subtitle "Por favor espere mientras se instalan los componentes requeridos" sound name "Submarine"'
 curl -L -o "signer.xpi" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/%7BC4113077-5495-4C77-A629-FFF0648EA6E5%7D.xpi"
 signerPath="file://$(pwd)/signer.xpi"
-/Applications/Firefox.app/Contents/MacOS/firefox --new-tab "$signerPath" &
+nohup /Applications/Firefox.app/Contents/MacOS/firefox --new-tab "$signerPath" &
 if test -f "$installerFile"; then
 	echo "[INFO] You have already downloaded the latest installer file... Now downloading installation config file..."
 else
@@ -40,18 +40,15 @@ else
 	curl -L -o "libASEP11.dylib" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/libASEP11.dylib"
 	cp -rf libASEP11.dylib /usr/local/lib/libASEP11.dylib
 	mkdir '/Library/Application Support/Athena'
-	cp -rf libASEP11.dylib '/Library/Application Support/Athena/libASEP11.dylib'
-	rm -rf libASEP11.dylib
+	sudo cp -rf libASEP11.dylib '/Library/Application Support/Athena/libASEP11.dylib'
 fi
-echo "[INFO] Cleaning installation resources..."
-rm -rf response.varfile $installerFile
 curl -L -o "handlers.json" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/handlers.json"
 for handlerFile in $(find "$HOME/Library/ApplicationSupport/Firefox/Profiles" | grep "handlers.json")
 do
 cp -rf handlers.json "$handlerFile"
 done
-rm -rf handlers.json signer.xpi
+echo "[INFO] Cleaning installation resources..."
+rm -rf response.varfile $installerFile libASEP11.dylib handlres.json signer.xpi
 echo "[INFO] Running app for the first time..."
 killall firefox 
-/Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
-#open -a "OpenWebStart javaws" DoSignatureLogin.jnlp --args -Xoffline
+nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
