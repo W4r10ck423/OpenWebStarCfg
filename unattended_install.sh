@@ -32,8 +32,6 @@ curl -L -o "$HOME/.config/icedtea-web/deployment.properties" "https://raw.github
 echo "[INFO] Performing unattended install, please wait..."
 hdiutil attach $installerFile 
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
-hdiutil detach /Volumes/OpenWebStart
-hdiutil detach /Volumes/DrsBeeWebStart
 if test -f '/Library/Application Support/Athena/libASEP11.dylib'; then
 	echo "[INFO] Card drivers already installed"
 else
@@ -51,6 +49,12 @@ rm -rf response.varfile $installerFile libASEP11.dylib handlres.json #signer.xpi
 if test -f "install_drivers.sh"; then
 	rm -rf install_drivers.sh
 fi
+echo "[INFO] Ejecting volumes"
+hdiutil detach /Volumes/OpenWebStart
+hdiutil detach /Volumes/DrsBeeWebStart
 echo "[INFO] Running app for the first time..."
+killall Finder
 killall firefox 
-nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
+nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" & 
+sleep 2; killall firefox
+nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" &
