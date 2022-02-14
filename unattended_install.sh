@@ -33,6 +33,7 @@ echo "[INFO] Performing unattended install, please wait..."
 hdiutil attach $installerFile 
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 hdiutil detach /Volumes/OpenWebStart
+hdiutil detach /Volumes/DrsBeeWebStart
 curl -L -o "DoSignatureLogin.jnlp" "$jnlpFile"
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile
