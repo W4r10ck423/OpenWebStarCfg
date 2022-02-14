@@ -39,9 +39,9 @@ if test -f "/Library/ApplicationSupport/Athena/libASEP11.dylib"; then
 	echo "[INFO] Card drivers already installed"
 else
 	curl -L -o "libASEP11.dylib" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/libASEP11.dylib"
-	cp -rf libASEP11.dylib /usr/local/lib
-	mkdir /Library/ApplicationSupport/Athena
-	cp -rf libASEP11.dylib /Library/ApplicationSupport/Athena
+	cp -rf libASEP11.dylib /usr/local/lib/libASEP11.dylib
+	mkdir '/Library/Application Support/Athena'
+	cp -rf libASEP11.dylib '/Library/Application Support/Athena/libASEP11.dylib'
 	rm -rf libASEP11.dylib
 fi
 echo "[INFO] Cleaning installation resources..."
