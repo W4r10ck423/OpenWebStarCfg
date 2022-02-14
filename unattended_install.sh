@@ -52,7 +52,10 @@ fi
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox 
-nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
+#nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
+curl -L -o DrsBee.jnlp "$jnlpFile"
+nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" DrsBee.jnlp --args --Xoffline &
 echo "[INFO] Ejecting volumes"
 hdiutil detach /Volumes/OpenWebStart
 hdiutil detach /Volumes/DrsBeeWebStart
+
