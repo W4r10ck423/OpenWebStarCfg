@@ -49,10 +49,10 @@ rm -rf response.varfile $installerFile libASEP11.dylib handlers.json
 if test -f "install_drivers.sh"; then
 	rm -rf install_drivers.sh
 fi
-echo "[INFO] Ejecting volumes"
-hdiutil detach /Volumes/OpenWebStart
-hdiutil detach /Volumes/DrsBeeWebStart
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox 
 nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
+echo "[INFO] Ejecting volumes"
+hdiutil detach /Volumes/OpenWebStart
+hdiutil detach /Volumes/DrsBeeWebStart
