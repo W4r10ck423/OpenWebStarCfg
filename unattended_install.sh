@@ -55,6 +55,4 @@ hdiutil detach /Volumes/DrsBeeWebStart
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox 
-nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" & 
-sleep 2; killall firefox
-nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" &
+nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
