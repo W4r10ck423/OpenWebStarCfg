@@ -33,23 +33,23 @@ echo "[INFO] Performing unattended install, please wait..."
 hdiutil attach $installerFile 
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 hdiutil detach /Volumes/OpenWebStart
-if test -f '/Library/Application Support/Athena/libASEP11.dylib'; then
-	echo "[INFO] Card drivers already installed"
-else
-	curl -L -o install_drivers.sh "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/install_drivers.sh"
-	chmod +x install_drivers.sh
-	osascript -e 'do shell script "sudo -s ./install_drivers.sh" with administrator privileges'
-fi
+#if test -f '/Library/Application Support/Athena/libASEP11.dylib'; then
+#	echo "[INFO] Card drivers already installed"
+#else
+#	curl -L -o install_drivers.sh "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/install_drivers.sh"
+#	chmod +x install_drivers.sh
+#	osascript -e 'do shell script "sudo -s ./install_drivers.sh" with administrator privileges'
+#fi
 curl -L -o "handlers.json" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/handlers.json"
 for handlerFile in $(find "$HOME/Library/ApplicationSupport/Firefox/Profiles" | grep "handlers.json")
 do
 cp -rf handlers.json "$handlerFile"
 done
 echo "[INFO] Cleaning installation resources..."
-rm -rf response.varfile $installerFile libASEP11.dylib handlers.json 
-if test -f "install_drivers.sh"; then
-	rm -rf install_drivers.sh
-fi
+rm -rf response.varfile $installerFile handlers.json 
+#if test -f "install_drivers.sh"; then
+#	rm -rf install_drivers.sh
+#fi
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
