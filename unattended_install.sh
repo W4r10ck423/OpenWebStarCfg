@@ -3,7 +3,14 @@
 # Developed by: Dani3l Murill0
 echo "------WELCOME TO OPENWEBSTART INSTALLATION SCRIPT------"
 echo "-----------------------APOLOLAB------------------------"
-installerURL=$(curl -sL https://api.github.com/repos/karakun/OpenWebStart/releases/latest | grep "/OpenWebStart_macos" | cut -d\" -f4)
+macArch=$(uname -p)
+if ["$macArch"=="arm"]
+then
+    tag="/OpenWebStart_macos-aarch64"
+else
+    tag="/OpenWebStart_macos-x64"
+fi
+installerURL=$(curl -sL https://api.github.com/repos/karakun/OpenWebStart/releases/latest | grep $tag | cut -d\" -f4)
 installerVersion=$(echo $installerURL | cut -d\/ -f8)
 installerFile=$(echo $installerURL | cut -d\/ -f9)
 #jnlpFile="https://dev.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9QzNBOTFFMTBBMzE0RTEwREE5MTZDMUQx" #DEV
@@ -58,4 +65,3 @@ nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.
 #nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" DrsBee.jnlp --args --Xoffline &
 echo "[INFO] Ejecting volumes"
 #hdiutil detach /Volumes/DrsBeeWebStart
-
