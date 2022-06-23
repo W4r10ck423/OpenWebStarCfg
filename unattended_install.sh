@@ -3,9 +3,9 @@
 # Developed by: Dani3l Murill0
 echo "------WELCOME TO OPENWEBSTART INSTALLATION SCRIPT------"
 echo "-----------------------APOLOLAB------------------------"
+intelArch="i386"
 macArch=$(uname -p)
-if ["$macArch"=="arm"]
-then
+if [ "$macArch" != "$intelArch" ]; then
     tag="/OpenWebStart_macos-aarch64"
 else
     tag="/OpenWebStart_macos-x64"
@@ -17,9 +17,7 @@ installerFile=$(echo $installerURL | cut -d\/ -f9)
 jnlpFile="https://www.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9REVFODg4MEJBQ0M3MDgxNTA4NDA0MDZEOyBfZ2FfWUtIS1hNTERaSD1HUzEuMS4xNjQzMjExNjAwLjEuMC4xNjQzMjExNjAwLjA7IF9nYT1HQTEuMi4xMDgxOTk4NDk3LjE2NDMyMTE2MDE7IF9naWQ9R0ExLjIuMTUyMDQ5NTc2Mi4xNjQzMjExNjAyOyBfZ2F0X2d0YWdfVUFfMTc4NjQ0OTU1XzI9MTsgX2hqU2Vzc2lvblVzZXJfMjAwNDkxOD1leUpwWkNJNkltVXlaamhsTkRJMExUTTNaall0TldSaFpDMDVNemRqTFRFMFpETmlOekEwT0Rsa05pSXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUxTnpJc0ltVjRhWE4wYVc1bklqcG1ZV3h6WlgwPTsgX2hqRmlyc3RTZWVuPTE7IF9oakluY2x1ZGVkSW5TZXNzaW9uU2FtcGxlPTE7IF9oalNlc3Npb25fMjAwNDkxOD1leUpwWkNJNklqUTVZekkwTURWbExUSTJaVGt0TkdGa01DMWhaREJsTFRsa01UZzROalJpTnpOak15SXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUzTkRVc0ltbHVVMkZ0Y0d4bElqcDBjblZsZlE9PTsgX2hqSW5jbHVkZWRJblBhZ2V2aWV3U2FtcGxlPTE7IF9oakFic29sdXRlU2Vzc2lvbkluUHJvZ3Jlc3M9MQ==" #PROD
 echo "[INFO] The current installer version is $installerVersion"
 osascript -e 'display notification "(Este proceso puede tardar algunos minutos)" with title "DrsBee" subtitle "Por favor espere mientras se instalan los componentes requeridos" sound name "Submarine"'
-#curl -L -o "signer.xpi" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/%7BC4113077-5495-4C77-A629-FFF0648EA6E5%7D.xpi"
-#signerPath="file://$(pwd)/signer.xpi"
-#nohup /Applications/Firefox.app/Contents/MacOS/firefox --new-tab "$signerPath" &
+
 if test -f "$installerFile"; then
 	echo "[INFO] You have already downloaded the latest installer file... Now downloading installation config file..."
 else
@@ -34,34 +32,37 @@ else
 	curl -L -o response.varfile https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/response.varfile
         
 fi
+
 echo "[INFO] Downloading aditional configuration file, please wait..."
-curl -L -o "$HOME/.config/icedtea-web/deployment.properties" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/deployment.properties"
+icedteaDir="$HOME/.config/icedtea-web"
+if [[ ! -e $icedteaDir ]]; then
+    mkdir $icedteaDir
+fi
+curl -L -o "$icedteaDir/deployment.properties" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/deployment.properties"
+
 echo "[INFO] Performing unattended install, please wait..."
 hdiutil attach $installerFile 
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 hdiutil detach /Volumes/OpenWebStart
-#if test -f '/Library/Application Support/Athena/libASEP11.dylib'; then
-#	echo "[INFO] Card drivers already installed"
-#else
-#	curl -L -o install_drivers.sh "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/install_drivers.sh"
-#	chmod +x install_drivers.sh
-#	osascript -e 'do shell script "sudo -s ./install_drivers.sh" with administrator privileges'
-#fi
+
+
+echo "[INFO] Setting file associations for Firefox"
 curl -L -o "handlers.json" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/handlers.json"
-for handlerFile in $(find "$HOME/Library/ApplicationSupport/Firefox/Profiles" | grep "handlers.json")
+supportTag='Support'
+for handlerFile in $(find "$HOME/Library/Application Support/Firefox/Profiles" | grep "handlers.json")
 do
-cp -rf handlers.json "$handlerFile"
+if [[ "$handlerFile" == *"$supportTag"* ]]; then
+    cp -rf handlers.json "$HOME/Library/Application $handlerFile"
+fi
 done
+
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile handlers.json 
-#if test -f "install_drivers.sh"; then
-#	rm -rf install_drivers.sh
-#fi
+
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
 nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
-#curl -L -o DrsBee.jnlp "$jnlpFile"
-#nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" DrsBee.jnlp --args --Xoffline &
+
 echo "[INFO] Ejecting volumes"
-#hdiutil detach /Volumes/DrsBeeWebStart
+hdiutil detach /Volumes/DrsBeeWebStart
