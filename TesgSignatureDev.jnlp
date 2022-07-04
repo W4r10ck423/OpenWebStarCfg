@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jnlp spec="1.0+"
+      codebase="https://dev.drsbee.com/">
+    <information>
+        <title>Apolo Signer</title>
+        <vendor>Apololab</vendor>
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <j2se version="1.8+"
+              href="http://java.sun.com/products/autodl/j2se" />
+        
+        <jar href="webstart-athena.jar" main="true" />
+
+    </resources>
+    <application-desc name="Drsbee Web" main-class="com.apololab.firma.WebStart">
+        <!--<argument>-documentId </argument>-->
+        <argument>-cookies wsStatus=1; _ga_YKHKXMLDZH=GS1.1.1656954473.1.1.1656954852.0; _ga=GA1.1.1183486879.1656954473; _gid=GA1.2.1912646233.1656954473; _hjSessionUser_2004918=eyJpZCI6ImFmZGY4MzE3LWFmZGUtNTcwMi05ZWQwLWU5YThhMzk0Nzc3OSIsImNyZWF0ZWQiOjE2NTY5NTQ0NzMyNzAsImV4aXN0aW5nIjp0cnVlfQ==; ASP.NET_SessionId=A8A4F194E09446B6311319D2</argument>
+        <argument>-baseUrl https://dev.drsbee.com/</argument>
+        <argument>-getHashPage /es-CR/Account/PresignLogin</argument>
+        <argument>-resultPage /es-CR/Account/PostsignLogin</argument>
+      
+        <argument>-debug false</argument>
+            <argument>-language es</argument>
+                    <argument>-errorReportPage  /es-CR/Home/DigitalSignatureError</argument>
+                    <argument>-announcePage /es-CR/Home/AnnounceDigitalSignature</argument>
+            </application-desc>
+    <update check="always" />
+    <security>
+        <all-permissions />
+    </security>
+</jnlp>
