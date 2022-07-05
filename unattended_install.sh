@@ -60,7 +60,7 @@ done
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile handlers.json 
 
-curl -L -o "TestSignatureDev.jnlp" "$jnlpFile"
+#curl -L -o "TestSignatureDev.jnlp" "$jnlpFile"
 
 echo "[INFO] Running app for the first time..."
 killall Finder
