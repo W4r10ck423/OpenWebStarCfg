@@ -60,13 +60,12 @@ done
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile handlers.json 
 
-#curl -L -o "TestSignatureDev.jnlp" "$jnlpFile"
-
+curl -L -o "TestSignatureDev.jnlp" "$jnlpFile"
+xattr -d com.apple.quarantine TestSignatureDev.jnlp
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
-#nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" TestSignatureDev.jnlp &
-nohup /Applications/Firefox.app/Contents/MacOS/firefox "$jnlpFile" "https://dev.drsbee.com/es-CR/Account/Login" &
-
+nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" &
+nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" TestSignatureDev.jnlp &
 echo "[INFO] Ejecting volumes"
 hdiutil detach /Volumes/DrsBeeWebStart
