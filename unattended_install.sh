@@ -45,7 +45,7 @@ curl -L -o "$icedteaDir/deployment.properties" "https://raw.githubusercontent.co
 echo "[INFO] Performing unattended install, please wait..."
 hdiutil attach $installerFile 
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
-hdiutil detach /Volumes/OpenWebStart
+#hdiutil detach /Volumes/OpenWebStart
 
 
 echo "[INFO] Setting file associations for Firefox"
