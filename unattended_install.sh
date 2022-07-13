@@ -60,6 +60,7 @@ done
 curl -o "DrsBeeSigner.tar.gz" -L "$drsbeeSignerURL"
 tar xvf DrsBeeSigner.tar.gz
 cp -rf DrsBeeSigner.app /Applications
+rm -rf DrsBeeSigner.tar.gz DrsBeeSigner.app 
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile handlers.json 
 
