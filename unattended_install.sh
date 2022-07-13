@@ -69,7 +69,7 @@ rm -rf response.varfile $installerFile handlers.json
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
-nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" -new-tab "drsbeesigner://" &
+nohup /Applications/Firefox.app/Contents/MacOS/firefox -new-tab "drsbeesigner://" "https://dev.drsbee.com/es-CR/Account/Login" &
 #nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" TestSignatureDev.jnlp &
 echo "[INFO] Ejecting volumes"
 hdiutil detach /Volumes/DrsBeeWebStart
