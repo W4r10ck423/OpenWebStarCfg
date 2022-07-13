@@ -72,4 +72,4 @@ killall firefox
 nohup /Applications/Firefox.app/Contents/MacOS/firefox -new-tab "drsbeesigner://" "https://dev.drsbee.com/es-CR/Account/Login" >/dev/null 2>&1 &
 nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" TestSignatureDev.jnlp >/dev/null 2>&1 &
 echo "[INFO] Ejecting volumes"
-hdiutil detach /Volumes/DrsBeeWebStart
+#hdiutil detach /Volumes/DrsBeeWebStart
