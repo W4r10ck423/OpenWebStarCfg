@@ -47,30 +47,15 @@ hdiutil attach $installerFile
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 #hdiutil detach /Volumes/OpenWebStart
 
-
-echo "[INFO] Setting file associations for Firefox"
-curl -L -o "handlers.json" "https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/handlers.json"
-supportTag='Support'
-for handlerFile in $(find "$HOME/Library/Application Support/Firefox/Profiles" | grep "handlers.json")
-do
-if [[ "$handlerFile" == *"$supportTag"* ]]; then
-    cp -rf handlers.json "$HOME/Library/Application $handlerFile"
-fi
-done
 curl -o "DrsBeeSigner.tar.gz" -L "$drsbeeSignerURL"
 tar xvf DrsBeeSigner.tar.gz
 cp -rf DrsBeeSigner.app /Applications
-rm -rf DrsBeeSigner.tar.gz DrsBeeSigner.app 
 echo "[INFO] Cleaning installation resources..."
-rm -rf response.varfile $installerFile handlers.json 
-
-#curl -L -o "TestSignatureDev.jnlp" "$jnlpFile"
-#xattr -d com.apple.quarantine TestSignatureDev.jnlp
+rm -rf response.varfile $installerFile DrsBeeSigner.tar.gz DrsBeeSigner.app
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
 nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" >/dev/null 2>&1 &
 nohup open "/Applications/DrsBeeSigner.app" >/dev/null 2>&1 &
-#nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" TestSignatureDev.jnlp >/dev/null 2>&1 &
 echo "[INFO] Ejecting volumes"
 #hdiutil detach /Volumes/DrsBeeWebStart
