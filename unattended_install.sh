@@ -55,7 +55,7 @@ rm -rf response.varfile $installerFile beesigner.tar.gz beesigner.app
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
-nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" >/dev/null 2>&1 &
+#nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" >/dev/null 2>&1 &
 nohup open "/Applications/beesigner.app" >/dev/null 2>&1 &
 echo "[INFO] Ejecting volumes"
 #hdiutil detach /Volumes/DrsBeeWebStart
