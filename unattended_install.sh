@@ -16,7 +16,7 @@ installerFile=$(echo $installerURL | cut -d\/ -f9)
 jnlpFile="https://dev.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9QzNBOTFFMTBBMzE0RTEwREE5MTZDMUQx" #DEV
 #jnlpFile="https://www.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9REVFODg4MEJBQ0M3MDgxNTA4NDA0MDZEOyBfZ2FfWUtIS1hNTERaSD1HUzEuMS4xNjQzMjExNjAwLjEuMC4xNjQzMjExNjAwLjA7IF9nYT1HQTEuMi4xMDgxOTk4NDk3LjE2NDMyMTE2MDE7IF9naWQ9R0ExLjIuMTUyMDQ5NTc2Mi4xNjQzMjExNjAyOyBfZ2F0X2d0YWdfVUFfMTc4NjQ0OTU1XzI9MTsgX2hqU2Vzc2lvblVzZXJfMjAwNDkxOD1leUpwWkNJNkltVXlaamhsTkRJMExUTTNaall0TldSaFpDMDVNemRqTFRFMFpETmlOekEwT0Rsa05pSXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUxTnpJc0ltVjRhWE4wYVc1bklqcG1ZV3h6WlgwPTsgX2hqRmlyc3RTZWVuPTE7IF9oakluY2x1ZGVkSW5TZXNzaW9uU2FtcGxlPTE7IF9oalNlc3Npb25fMjAwNDkxOD1leUpwWkNJNklqUTVZekkwTURWbExUSTJaVGt0TkdGa01DMWhaREJsTFRsa01UZzROalJpTnpOak15SXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUzTkRVc0ltbHVVMkZ0Y0d4bElqcDBjblZsZlE9PTsgX2hqSW5jbHVkZWRJblBhZ2V2aWV3U2FtcGxlPTE7IF9oakFic29sdXRlU2Vzc2lvbkluUHJvZ3Jlc3M9MQ==" #PROD
 #jnlpFile="https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/TestSignatureDev.jnlp"
-drsbeeSignerURL="https://github.com/W4r10ck423/DrsBeeWebStartDist/raw/main/DrsBeeSigner.tar.gz"
+drsbeeSignerURL="https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/beesigner.tar.gz"
 echo "[INFO] The current installer version is $installerVersion"
 osascript -e 'display notification "(Este proceso puede tardar algunos minutos)" with title "DrsBee" subtitle "Por favor espere mientras se instalan los componentes requeridos" sound name "Submarine"'
 
@@ -47,15 +47,15 @@ hdiutil attach $installerFile
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 #hdiutil detach /Volumes/OpenWebStart
 
-curl -o "DrsBeeSigner.tar.gz" -L "$drsbeeSignerURL"
-tar xvf DrsBeeSigner.tar.gz
-cp -rf DrsBeeSigner.app /Applications
+curl -o "beesigner.tar.gz" -L "$drsbeeSignerURL"
+tar xvf beesigner.tar.gz
+cp -rf beesigner.app /Applications
 echo "[INFO] Cleaning installation resources..."
-rm -rf response.varfile $installerFile DrsBeeSigner.tar.gz DrsBeeSigner.app
+rm -rf response.varfile $installerFile beesigner.tar.gz beesigner.app
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
 nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" >/dev/null 2>&1 &
-nohup open "/Applications/DrsBeeSigner.app" >/dev/null 2>&1 &
+nohup open "/Applications/beesigner.app" >/dev/null 2>&1 &
 echo "[INFO] Ejecting volumes"
 #hdiutil detach /Volumes/DrsBeeWebStart
