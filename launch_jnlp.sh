@@ -5,6 +5,6 @@ osascript -e 'display notification "Por favor, espere..." with title "DrsBee" su
 jnlpURL="https://dev.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=$1";
 echo $jnlpURL;
 #jnlpURL="https://www.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9REVFODg4MEJBQ0M3MDgxNTA4NDA0MDZEOyBfZ2FfWUtIS1hNTERaSD1HUzEuMS4xNjQzMjExNjAwLjEuMC4xNjQzMjExNjAwLjA7IF9nYT1HQTEuMi4xMDgxOTk4NDk3LjE2NDMyMTE2MDE7IF9naWQ9R0ExLjIuMTUyMDQ5NTc2Mi4xNjQzMjExNjAyOyBfZ2F0X2d0YWdfVUFfMTc4NjQ0OTU1XzI9MTsgX2hqU2Vzc2lvblVzZXJfMjAwNDkxOD1leUpwWkNJNkltVXlaamhsTkRJMExUTTNaall0TldSaFpDMDVNemRqTFRFMFpETmlOekEwT0Rsa05pSXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUxTnpJc0ltVjRhWE4wYVc1bklqcG1ZV3h6WlgwPTsgX2hqRmlyc3RTZWVuPTE7IF9oakluY2x1ZGVkSW5TZXNzaW9uU2FtcGxlPTE7IF9oalNlc3Npb25fMjAwNDkxOD1leUpwWkNJNklqUTVZekkwTURWbExUSTJaVGt0TkdGa01DMWhaREJsTFRsa01UZzROalJpTnpOak15SXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUzTkRVc0ltbHVVMkZ0Y0d4bElqcDBjblZsZlE9PTsgX2hqSW5jbHVkZWRJblBhZ2V2aWV3U2FtcGxlPTE7IF9oakFic29sdXRlU2Vzc2lvbkluUHJvZ3Jlc3M9MQ=="
-curl -o "DrsbeeSignatureLauncher.jnlp" -L "$jnlpURL"
-xattr com.apple.quarantine "DrsbeeSignatureLauncher.jnlp"
-nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" "DrsbeeSignatureLauncher.jnlp" >/dev/null 2>&1 &
+curl -o "~/Downloads/BeeSignerLauncher.jnlp" -L "$jnlpURL"
+xattr -d com.apple.quarantine "~/Downloads/BeeSignerLauncher.jnlp"
+nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" "~/Downloads/BeeSignerLauncher.jnlp" >/dev/null 2>&1 &
