@@ -8,4 +8,4 @@ echo $jnlpURL;
 curl -o "/tmp/BeeSignerLauncher.jnlp" -L "$jnlpURL"
 xattr -d com.apple.quarantine "/tmp/BeeSignerLauncher.jnlp"
 #nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" "~/Downloads/BeeSignerLauncher.jnlp" >/dev/null 2>&1 &
-open "/Applications/OpenWebStart/OpenWebStart javaws.app" "/tmp/BeeSignerLauncher.jnlp" > /Users/daniel/beesigner.log
+nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" "/tmp/BeeSignerLauncher.jnlp" >/dev/null 2>&1 &
