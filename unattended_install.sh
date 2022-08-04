@@ -49,7 +49,7 @@ hdiutil attach $installerFile
 
 curl -o "beesigner.tar.gz" -L "$drsbeeSignerURL"
 tar xvf beesigner.tar.gz
-cp -rf beesigner.app /Applications
+osascript -e 'do shell script "sudo -s cp -rf beesigner.app /Applications" with administrator privileges'
 echo "[INFO] Cleaning installation resources..."
 rm -rf response.varfile $installerFile beesigner.tar.gz beesigner.app
 echo "[INFO] Running app for the first time..."
