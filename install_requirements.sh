@@ -14,5 +14,4 @@ if [ ! -d "/Applications/IDProtectClient*" ]; then
     curl -L -o IDProtectClient.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/IDProtectClient.tar.gz"
     tar xvf IDProtectClient.tar.gz    
     sudo ./IDProtectClient-7.60.00.app/Contents/MacOS/installbuilder.sh --mode unattended --prefix /Applications/IDProtectClient-7.60.00.app --disable-components Manager,PINTool,Mozilla
-# Download IDProtectClient.tar.gz from GitHub and extract it
-
+fi
