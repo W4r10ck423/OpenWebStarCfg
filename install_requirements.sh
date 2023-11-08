@@ -6,11 +6,14 @@ if [ ! -f "/usr/local/lib/libASEP11.dylib" ] && [ ! -f "/Library/Application Sup
     curl -L -o libs.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/libs.tar.gz"
     
     # Extract libASEP11.dylib from libs.tar.gz and copy to /usr/local/lib and /Library/Application Support/Athena
+    if [ ! -d "/Library/Application Support/Athena/" ]; then
+        sudo mkdir /Library/Application\ Support/Athena/
+    fi
     tar xvf libs.tar.gz -C /tmp/ && sudo cp /tmp/libs/libASEP11.dylib /usr/local/lib/ && sudo cp /tmp/libs/libASEP11.dylib /Library/Application\ Support/Athena/
 
 fi
 #Check if there is any app starting with "IDProtectClient*" in /Applications
-if [ ! -d "/Applications/IDProtectClient*" ]; then
+if [ ! -d "/Applications/IDProtect*" ]; then
     curl -L -o IDProtectClient.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/IDProtectClient.tar.gz"
     tar xvf IDProtectClient.tar.gz    
     sudo ./IDProtectClient-7.60.00.app/Contents/MacOS/installbuilder.sh --mode unattended --disable-components Manager,PINTool,Mozilla
