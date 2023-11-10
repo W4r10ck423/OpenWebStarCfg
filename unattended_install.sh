@@ -10,10 +10,10 @@ if [ ! -f "/usr/local/lib/libASEP11.dylib" ] && [ ! -f "/Library/Application Sup
     
     # Extract libASEP11.dylib from libs.tar.gz and copy to /usr/local/lib and /Library/Application Support/Athena
     if [ ! -d "/Library/Application Support/Athena/" ]; then
-        osascript -e 'do shell script "sudo mkdir /Library/Application\ Support/Athena/" with administrator privileges'        
+        osascript -e 'do shell script "sudo mkdir /Library/Application\\ Support/Athena/" with administrator privileges'        
     fi
     tar xvf libs.tar.gz -C /tmp/ 
-	osascript -e 'do shell script "sudo cp /tmp/libs/libASEP11.dylib /usr/local/lib/ && sudo cp /tmp/libs/libASEP11.dylib /Library/Application\ Support/Athena/" with administrator privileges'
+	osascript -e 'do shell script "sudo cp /tmp/libs/libASEP11.dylib /usr/local/lib/ && sudo cp /tmp/libs/libASEP11.dylib /Library/Application\\ Support/Athena/" with administrator privileges'
 fi
 #Check if there is any app starting with "IDProtectClient*" in /Applications
 if [ ! -d "/Applications/IDProtect*" ]; then
