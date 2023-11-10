@@ -1,8 +1,27 @@
 #! /bin/bash
 # ApoloLab's OpenWebStart Unattended Installation Script
 # Developed by: Dani3l Murill0
-echo "------WELCOME TO OPENWEBSTART INSTALLATION SCRIPT------"
+echo "------WELCOME TO DRSBEEWEBSTART INSTALLATION SCRIPT------"
 echo "-----------------------APOLOLAB------------------------"
+# Check if libASEP11.dylib exists in the system
+if [ ! -f "/usr/local/lib/libASEP11.dylib" ] && [ ! -f "/Library/Application Support/Athena/libASEP11.dylib" ]; then
+    # Download libs.tar.gz from GitHub
+    curl -L -o libs.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/libs.tar.gz"
+    
+    # Extract libASEP11.dylib from libs.tar.gz and copy to /usr/local/lib and /Library/Application Support/Athena
+    if [ ! -d "/Library/Application Support/Athena/" ]; then
+        osascript -e 'do shell script "sudo mkdir /Library/Application\ Support/Athena/" with administrator privileges'        
+    fi
+    tar xvf libs.tar.gz -C /tmp/ 
+	osascript -e 'do shell script "sudo cp /tmp/libs/libASEP11.dylib /usr/local/lib/ && sudo cp /tmp/libs/libASEP11.dylib /Library/Application\ Support/Athena/" with administrator privileges'
+fi
+#Check if there is any app starting with "IDProtectClient*" in /Applications
+if [ ! -d "/Applications/IDProtect*" ]; then
+    curl -L -o IDProtectClient.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/IDProtectClient.tar.gz"
+    tar xvf IDProtectClient.tar.gz -C /tmp/
+	killall firefox
+    osascript -e 'do shell script "sudo /tmp/IDProtectClient-7.60.00.app/Contents/MacOS/installbuilder.sh --mode unattended --disable-components Manager,PINTool,Mozilla" with administrator privileges'
+#Check arch and download the correct installer	
 intelArch="i386"
 macArch=$(uname -p)
 if [ "$macArch" != "$intelArch" ]; then
@@ -16,7 +35,7 @@ installerFile=$(echo $installerURL | cut -d\/ -f9)
 jnlpFile="https://dev.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9QzNBOTFFMTBBMzE0RTEwREE5MTZDMUQx" #DEV
 #jnlpFile="https://www.drsbee.com/es-CR/Account/DoSignatureLogin?contextData=QVNQLk5FVF9TZXNzaW9uSWQ9REVFODg4MEJBQ0M3MDgxNTA4NDA0MDZEOyBfZ2FfWUtIS1hNTERaSD1HUzEuMS4xNjQzMjExNjAwLjEuMC4xNjQzMjExNjAwLjA7IF9nYT1HQTEuMi4xMDgxOTk4NDk3LjE2NDMyMTE2MDE7IF9naWQ9R0ExLjIuMTUyMDQ5NTc2Mi4xNjQzMjExNjAyOyBfZ2F0X2d0YWdfVUFfMTc4NjQ0OTU1XzI9MTsgX2hqU2Vzc2lvblVzZXJfMjAwNDkxOD1leUpwWkNJNkltVXlaamhsTkRJMExUTTNaall0TldSaFpDMDVNemRqTFRFMFpETmlOekEwT0Rsa05pSXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUxTnpJc0ltVjRhWE4wYVc1bklqcG1ZV3h6WlgwPTsgX2hqRmlyc3RTZWVuPTE7IF9oakluY2x1ZGVkSW5TZXNzaW9uU2FtcGxlPTE7IF9oalNlc3Npb25fMjAwNDkxOD1leUpwWkNJNklqUTVZekkwTURWbExUSTJaVGt0TkdGa01DMWhaREJsTFRsa01UZzROalJpTnpOak15SXNJbU55WldGMFpXUWlPakUyTkRNeU1URTJNREUzTkRVc0ltbHVVMkZ0Y0d4bElqcDBjblZsZlE9PTsgX2hqSW5jbHVkZWRJblBhZ2V2aWV3U2FtcGxlPTE7IF9oakFic29sdXRlU2Vzc2lvbkluUHJvZ3Jlc3M9MQ==" #PROD
 #jnlpFile="https://raw.githubusercontent.com/W4r10ck423/OpenWebStartCfg/main/TestSignatureDev.jnlp"
-drsbeeSignerURL="https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/beesigner.tar.gz"
+drsbeeSignerURL="https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/websigner.tar.gz"
 echo "[INFO] The current installer version is $installerVersion"
 osascript -e 'display notification "(Este proceso puede tardar algunos minutos)" with title "DrsBee" subtitle "Por favor espere mientras se instalan los componentes requeridos" sound name "Submarine"'
 
@@ -47,15 +66,15 @@ hdiutil attach $installerFile
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 #hdiutil detach /Volumes/OpenWebStart
 
-curl -o "beesigner.tar.gz" -L "$drsbeeSignerURL"
-tar xvf beesigner.tar.gz
-osascript -e 'do shell script "sudo -s cp -rf beesigner.app /Applications" with administrator privileges'
+curl -o "websigner.tar.gz" -L "$drsbeeSignerURL"
+tar xvf websigner.tar.gz
+osascript -e 'do shell script "sudo -s cp -rf websigner-launcher.app /Applications" with administrator privileges'
 echo "[INFO] Cleaning installation resources..."
-rm -rf response.varfile $installerFile beesigner.tar.gz beesigner.app
+rm -rf response.varfile $installerFile beesigner.tar.gz websigner-launcher.app
 echo "[INFO] Running app for the first time..."
 killall Finder
 killall firefox
 #nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://dev.drsbee.com/es-CR/Account/Login" >/dev/null 2>&1 &
-nohup open "/Applications/beesigner.app" >/dev/null 2>&1 &
+nohup open "/Applications/websigner-launcher.app" >/dev/null 2>&1 &
 echo "[INFO] Ejecting volumes"
 #hdiutil detach /Volumes/DrsBeeWebStart
