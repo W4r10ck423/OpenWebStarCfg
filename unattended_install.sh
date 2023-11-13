@@ -22,6 +22,11 @@ if [ ! -d "/Applications/IDProtect*" ]; then
 	killall firefox
     osascript -e 'do shell script "sudo /tmp/IDProtectClient-7.60.00.app/Contents/MacOS/installbuilder.sh --mode unattended --disable-components Manager,PINTool,Mozilla" with administrator privileges'
 fi
+curl -o jdk-8u361-macosx-x64.dmg -L "https://cfdownload.adobe.com/pub/adobe/coldfusion/java/java8/java8u361/jdk/jdk-8u361-macosx-x64.dmg"
+hdiutil attach jdk-8u361-macosx-x64.dmg -nobrowse -noautoopen -noverify -mountpoint /Volumes/jdk-8u361-macosx-x64
+osascript -e 'do shell script "sudo installer -pkg "/Volumes/jdk-8u361-macosx-x64/JDK 8 Update 361.pkg" -target /" with administrator privileges'
+hdiutil detach /Volumes/jdk-8u361-macosx-x64
+
 #Check arch and download the correct installer	
 intelArch="i386"
 macArch=$(uname -p)
