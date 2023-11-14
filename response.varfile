@@ -13,5 +13,5 @@ deployment.log.file=true
 ows.jvm.manager.cache.cleanup=true
 ows.jvm.manager.versionRange=1.8*
 ows.jvm.manager.searchLocalAtStartup=true
-ows.jvm.manager.updateStrategy=AUTOMATICALLY_DOWNLOAD
+ows.jvm.manager.updateStrategy=DO_NOTHING_ON_LOCAL_MATCH
 ows.update.activated=true
