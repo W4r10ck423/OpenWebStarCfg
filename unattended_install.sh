@@ -22,10 +22,50 @@ if [ ! -d "/Applications/IDProtect*" ]; then
 	killall firefox
     osascript -e 'do shell script "sudo /tmp/IDProtectClient-7.60.00.app/Contents/MacOS/installbuilder.sh --mode unattended --disable-components Manager,PINTool,Mozilla" with administrator privileges'
 fi
-curl -o jdk-8u361-macosx-x64.dmg -L "https://cfdownload.adobe.com/pub/adobe/coldfusion/java/java8/java8u361/jdk/jdk-8u361-macosx-x64.dmg"
-hdiutil attach jdk-8u361-macosx-x64.dmg -nobrowse -noautoopen -noverify -mountpoint /Volumes/jdk-8u361-macosx-x64
-osascript -e 'do shell script "sudo installer -pkg "/Volumes/jdk-8u361-macosx-x64/JDK 8 Update 361.pkg" -target /" with administrator privileges'
+# curl -o jdk-8u361-macosx-x64.dmg -L "https://cfdownload.adobe.com/pub/adobe/coldfusion/java/java8/java8u361/jdk/jdk-8u361-macosx-x64.dmg"
+# hdiutil attach jdk-8u361-macosx-x64.dmg -nobrowse -noautoopen -noverify -mountpoint /Volumes/jdk-8u361-macosx-x64
+# osascript -e 'do shell script "sudo installer -pkg "/Volumes/jdk-8u361-macosx-x64/JDK 8 Update 361.pkg" -target /" with administrator privileges'
 #hdiutil detach /Volumes/jdk-8u361-macosx-x64
+
+TARGET_DIR="/Library/Java/JavaVirtualMachines"
+
+# Download Adoptium JDK 8 for macOS
+osascript -e 'do shell script "sudo rm -rf /Library/Java/JavaVirtualMachines/*" with administrator privileges'
+echo "Downloading Adoptium JDK 8..."
+download_url="https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924428/5cc34baf-b6b5-4584-b9f3-ebdf38af151a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231114%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231114T174922Z&X-Amz-Expires=300&X-Amz-Signature=bb9856e1b3637991561e9beb10c0d05ffdc356b611fd13178460971321827257&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372924428&response-content-disposition=attachment%3B%20filename%3DOpenJDK8U-jdk_x64_mac_hotspot_8u392b08.tar.gz&response-content-type=application%2Foctet-stream"
+
+if [ -z "$download_url" ]; then
+    echo "Failed to retrieve download URL"
+    exit 1
+fi
+
+curl -L -o "${TMPDIR}adoptium-jdk8.tar.gz" "$download_url"
+
+# Check if the download was successful
+if [ $? -ne 0 ]; then
+    echo "Download failed"
+    exit 1
+fi
+
+echo "Download complete. Installing..."
+
+# Create target directory if it doesn't exist
+sudo mkdir -p "${TARGET_DIR}"
+
+# Extract the downloaded file
+sudo tar -xzf "${TMPDIR}adoptium-jdk8.tar.gz" -C "${TARGET_DIR}"
+
+# Clean up the temporary file
+rm "${TMPDIR}adoptium-jdk8.tar.gz"
+
+# Set JAVA_HOME in .bash_profile or .zshrc (optional)
+echo "export JAVA_HOME=$(ls -d ${TARGET_DIR}/*/ | grep -m 1 ${JDK_VERSION})" >> ~/.bash_profile
+# For zsh users: echo "export JAVA_HOME=$(ls -d ${TARGET_DIR}/*/ | grep -m 1 ${JDK_VERSION})" >> ~/.zshrc
+
+echo "Installation complete. Please restart your terminal or source your profile to apply changes."
+
+
+
 
 #Check arch and download the correct installer	
 intelArch="i386"
