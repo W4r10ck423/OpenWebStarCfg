@@ -12,4 +12,5 @@ if test -f "/tmp/BeeSignerLauncher.jnlp"; then
 fi
 curl -o "/tmp/BeeSignerLauncher.jnlp" -L "$jnlpURL" -H "Cookie: $decodedCookie"
 #xattr -d com.apple.quarantine "/tmp/BeeSignerLauncher.jnlp"
-nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" "/tmp/BeeSignerLauncher.jnlp" >/dev/null 2>&1 &
+#nohup open "/Applications/OpenWebStart/OpenWebStart javaws.app" "/tmp/BeeSignerLauncher.jnlp" >/dev/null 2>&1 &
+open "/tmp/BeeSignerLauncher.jnlp"

@@ -68,7 +68,7 @@ echo "[INFO] Performing unattended install, please wait..."
 hdiutil attach $installerFile 
 /Volumes/OpenWebStart/OpenWebStart\ Installer.app/Contents/MacOS/JavaApplicationStub -q -varfile response.varfile
 #hdiutil detach /Volumes/OpenWebStart
-
+defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{"LSHandlerContentType"="net.sourceforge.jnlp"; "LSHandlerRoleAll"="/Applications/OpenWebStart javaws.app";}'
 curl -o "websigner.tar.gz" -L "$drsbeeSignerURL"
 tar xvf websigner.tar.gz
 osascript -e 'do shell script "sudo -s cp -rf websigner-launcher.app /Applications" with administrator privileges'
