@@ -50,6 +50,6 @@ sudo chown root:wheel /Library/LaunchDaemons/com.apololab.handlejnlp.plist
 sudo chmod 644 /Library/LaunchDaemons/com.apololab.handlejnlp.plist
 sudo launchctl load -w /Library/LaunchDaemons/com.apololab.handlejnlp.plist
 osascript -e "tell app \"System Events\" to display dialog \"$MESSAGE\" with title \"$TITLE\""
-nohup open -a /Applications/firefox.app/Contents/MacOS/firefox https://www.drsbee.com/es-CR/Account/Login &
+nohup /Applications/Firefox.app/Contents/MacOS/firefox "https://www.drsbee.com/es-CR/Account/Login" >/dev/null 2>&1 &
 kill %1
 
