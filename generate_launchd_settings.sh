@@ -5,7 +5,7 @@ username=$(whoami)
 
 # Define the watch path
 watchpath="/Users/$username/Downloads"
-
+handler_script="/Users/$username/.local/share/apololab/handle_jnlp.sh"
 # Output file name
 output_file="output.plist"
 
@@ -20,13 +20,13 @@ cat <<EOT > $output_file
 
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/local/bin/handle_jnlp.sh</string>
+        <string>$handler_script</string>
     </array>
 
     <key>UserName</key>
     <string>$username</string>
 
-    <key>QueueDirectories</key>
+    <key>WatchPaths</key>
     <array>
         <string>$watchpath</string>
     </array>

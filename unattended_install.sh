@@ -28,8 +28,14 @@ if [ ! -d "/Applications/IDProtect*" ]; then
     osascript -e 'do shell script "sudo /tmp/IDProtectClient-7.60.00.app/Contents/MacOS/installbuilder.sh --mode unattended --disable-components Manager,PINTool,Mozilla" with administrator privileges'
 fi
 
+if [ ! -d "$HOME/.local/share/apololab" ]; then
+    mkdir -p "$HOME/.local/share/apololab"
+    if [ ! -f "$HOME/.local/share/apololab/handle_jnlp.sh" ]; then
+        curl -o "$HOME/.local/share/apololab/handle_jnlp.sh" "$SCRIPT_URL"
+        chmod +x "$HOME/.local/share/apololab/handle_jnlp.sh"
+    fi
+fi
+
 curl -sL https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/generate_launchd_settings.sh | bash
-curl -o "$SCRIPT_PATH" "$SCRIPT_URL"
-chmod +x "$SCRIPT_PATH"
-osascript -e 'do shell script "sudo mv output.plist /Library/LaunchDaemons/com.apololab.handlejnlp.plist && sudo chown root:wheel /Library/LaunchDaemons/com.apololab.handlejnlp.plist &&  sudo chmod 644 /Library/LaunchDaemons/com.apololab.handlejnlp.plist && sudo launchctl load -w \"/Library/LaunchDaemons/com.apololab.handlejnlp.plist\"" with administrator privileges'
+osascript -e 'do shell script "sudo mv output.plist /Library/LaunchDaemons/com.apololab.handlejnlp.plist && sudo chown root:wheel /Library/LaunchDaemons/com.apololab.handlejnlp.plist &&  sudo chmod 644 /Library/LaunchDaemons/com.apololab.handlejnlp.plist && sudo launchctl load -w /Library/LaunchDaemons/com.apololab.handlejnlp.plist" with administrator privileges'
 osascript -e "tell app \"System Events\" to display dialog \"$MESSAGE\" with title \"$TITLE\""
