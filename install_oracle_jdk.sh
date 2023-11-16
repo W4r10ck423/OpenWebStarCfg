@@ -25,19 +25,10 @@ if [ -z "$MOUNT_DIR" ]; then
     exit 1
 fi
 
-# Find the package (.pkg) file within the mounted directory
-PKG_FILE=$(find "$MOUNT_DIR" -name "*.pkg")
-
-# Check if the .pkg file exists
-if [ -z "$PKG_FILE" ]; then
-    echo "Package file not found in the mounted DMG."
-    hdiutil detach "$MOUNT_DIR"
-    exit 1
-fi
-
 # Perform silent installation using osascript for administrative privileges
 echo "Installing JDK..."
-sudo installer -pkg "$PKG_FILE" -target /
+cp -rf $MOUNT_DIR/*.pkg /tmp/oracle-jdk.pkg
+sudo installer -pkg /tmp/oracle-jdk.pkg -target /
 # Eject the mounted image
 hdiutil detach "$MOUNT_DIR"
 
