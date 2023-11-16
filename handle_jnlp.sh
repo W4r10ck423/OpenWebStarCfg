@@ -3,6 +3,7 @@
 # Directory to monitor
 DOWNLOADS="$HOME/Downloads"
 
+
 # Current time in seconds since the epoch
 current_time=$(date +%s)
 
