@@ -37,7 +37,7 @@ fi
 
 # Perform silent installation using osascript for administrative privileges
 echo "Installing JDK..."
-osascript -e "do shell script \"installer -pkg '$PKG_FILE' -target /\" with administrator privileges"
+sudo installer -pkg '$PKG_FILE' -target /
 
 # Eject the mounted image
 hdiutil detach "$MOUNT_DIR"
