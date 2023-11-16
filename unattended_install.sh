@@ -2,7 +2,6 @@
 PLIST_LABEL="com.apololab.handlejnlp"
 PLIST_FILENAME="${PLIST_LABEL}.plist"
 PLIST_PATH="/Library/LaunchDaemons/${PLIST_FILENAME}"
-SCRIPT_URL="https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/handle_jnlp.sh"
 SCRIPT_PATH="/usr/local/bin/handle_jnlp.sh"
 CURRENT_USER=$(stat -f "%Su" /dev/console)
 JDK_URL="https://cfdownload.adobe.com/pub/adobe/coldfusion/java/java8/java8u361/jdk/jdk-8u361-macosx-x64.dmg"
@@ -31,7 +30,7 @@ fi
 if [ ! -d "$HOME/.local/share/apololab" ]; then
     mkdir -p "$HOME/.local/share/apololab"
     if [ ! -f "$HOME/.local/share/apololab/handle_jnlp.sh" ]; then
-        curl -o "$HOME/.local/share/apololab/handle_jnlp.sh" "$SCRIPT_URL"
+        curl -L -o "$HOME/.local/share/apololab/handle_jnlp.sh" 
         chmod +x "$HOME/.local/share/apololab/handle_jnlp.sh"
     fi
 fi
