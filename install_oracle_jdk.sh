@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define the URL and the installation path
-JDK_URL="https://cfdownload.adobe.com/pub/adobe/coldfusion/java/java8/java8u361/jdk/jdk-8u361-macosx-x64.dmg"
-DMG_FILE="jdk-8u361-macosx-x64.dmg"
+JDK_URL="https://archive.org/download/jdk-8u391-macosx-x64/jdk-8u391-macosx-x64.dmg"
+DMG_FILE="jdk-8u391-macosx-x64.dmg"
 INSTALL_PATH="/Library/Java/JavaVirtualMachines"
 
 # Download the JDK using curl
@@ -17,7 +17,7 @@ fi
 
 # Mount the downloaded DMG file
 echo "Mounting DMG file..."
-MOUNT_DIR=`hdiutil attach jdk-8u361-macosx-x64.dmg -nobrowse -noautoopen -noverify -mountpoint /Volumes/jdk-8u361-macosx-x64 | grep "Volumes" | awk '{print $3}'`
+MOUNT_DIR=`hdiutil attach jdk-8u391-macosx-x64.dmg -nobrowse -noautoopen -noverify $
 
 # Check if the mounting was successful
 if [ -z "$MOUNT_DIR" ]; then
