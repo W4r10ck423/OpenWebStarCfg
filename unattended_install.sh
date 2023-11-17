@@ -36,12 +36,10 @@ if [ ! -d "/Applications/IDProtect*" ]; then
     sudo /tmp/IDProtectClient-7.60.00.app/Contents/MacOS/installbuilder.sh --mode unattended --disable-components Manager,PINTool,Mozilla
 fi
 
-if [ ! -d "$HOME/.local/share/apololab" ]; then
-    mkdir -p "$HOME/.local/share/apololab"
-    if [ ! -f "$HOME/.local/share/apololab/handle_jnlp.sh" ]; then
-        curl -L -o "$HOME/.local/share/apololab/handle_jnlp.sh" "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/handle_jnlp.sh"
-        chmod +x "$HOME/.local/share/apololab/handle_jnlp.sh"
-    fi
+if [ ! -d "/Applications/apolosigner.app" ]; then
+    curl -L -o apolosigner.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/apolosigner.tar.gz"
+    tar xvf apolosigner.tar.gz -C /tmp/
+    sudo mv /tmp/apolosigner.app /Applications/
 fi
 
 curl -sL https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/generate_launchd_settings.sh | bash
