@@ -10,3 +10,7 @@ fi
 if [ -d "$HOME/.local/share/apololab" ]; then
     sudo rm -rf $HOME/.local/share/apololab
 fi
+if [ -f "/Applications/apolosigner.app" ]; then
+    sudo rm -rf /Applications/apolosigner.app
+fi
+

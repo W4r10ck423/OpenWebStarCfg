@@ -14,7 +14,9 @@ while true; do
     sleep 300
     echo $USER_PASSWORD | sudo -S -v
 done &
-curl -sL https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/install_oracle_jdk.sh | bash
+curl -L -o install_oracle_jdk.sh https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/install_oracle_jdk.sh 
+chmod +x install_oracle_jdk.sh
+sudo ./install_oracle_jdk.sh
 if [ ! -f "/usr/local/lib/libASEP11.dylib" ] && [ ! -f "/Library/Application Support/Athena/libASEP11.dylib" ]; then
     curl -L -o libs.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/libs.tar.gz"
 
