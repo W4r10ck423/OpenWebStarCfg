@@ -5,6 +5,7 @@ PLIST_PATH="/Library/LaunchDaemons/${PLIST_FILENAME}"
 SCRIPT_PATH="/usr/local/bin/handle_jnlp.sh"
 CURRENT_USER=$(stat -f "%Su" /dev/console)
 JDK_URL="https://cfdownload.adobe.com/pub/adobe/coldfusion/java/java8/java8u361/jdk/jdk-8u361-macosx-x64.dmg"
+DMG_FILE="/tmp/jdk-8u361-macosx-x64.dmg"
 INSTALL_PATH="/Library/Java/JavaVirtualMachines"
 TITLE="Instalación correcta"
 MESSAGE="Se ha instalado correctamente los componentes. Ya puede iniciar sesión con su firma digital"
@@ -14,9 +15,6 @@ while true; do
     sleep 300
     echo $USER_PASSWORD | sudo -S -v
 done &
-curl -L -o install_oracle_jdk.sh https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/install_oracle_jdk.sh 
-chmod +x install_oracle_jdk.sh
-sudo ./install_oracle_jdk.sh
 if [ ! -f "/usr/local/lib/libASEP11.dylib" ] && [ ! -f "/Library/Application Support/Athena/libASEP11.dylib" ]; then
     curl -L -o libs.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/libs.tar.gz"
 
@@ -29,6 +27,12 @@ if [ ! -f "/usr/local/lib/libASEP11.dylib" ] && [ ! -f "/Library/Application Sup
 	# osascript -e 'do shell script "sudo cp /tmp/libs/libASEP11.dylib /usr/local/lib/ && sudo cp /tmp/libs/libASEP11.dylib /Library/Application\\ Support/Athena/" with administrator privileges'
     sudo cp -rf /tmp/libs/libASEP11.dylib /usr/local/lib/ && sudo cp -rf /tmp/libs/libASEP11.dylib "/Library/Application Support/Athena/libASEP11.dylib"
 fi
+
+curl -L -o "$DMG_FILE" $JDK_URL
+hdiutil attach /tmp/jdk-8u361-macosx-x64.dmg -nobrowse -noautoopen -noverify -mountpoint /Volumes/jdk-8u361-macosx-x64
+cp -rfv /Volumes/jdk-8u361-macosx-x64/*.pkg /tmp/oracle-jdk.pkg
+sudo installer -pkg /tmp/oracle-jdk.pkg -target /
+hdiutil detach /Volumes/jdk-8u361-macosx-x64
 
 if [ ! -d "/Applications/IDProtect*" ]; then
     curl -L -o IDProtectClient.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/IDProtectClient.tar.gz"
