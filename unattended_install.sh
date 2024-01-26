@@ -14,7 +14,7 @@ MESSAGE="Se ha instalado correctamente los componentes. Ya puede iniciar sesión
 # done &
 curl -L -o libs.tar.gz "https://github.com/W4r10ck423/OpenWebStartCfg/raw/main/installers/osx/libs.tar.gz"
 tar xvf libs.tar.gz -C /tmp/ 
-curl -L -o ApoloSigner.tar.gz "https://dev.beeresponsive.drsbee.com:3000/static/Autentico2.tar.gz"
+curl -L -o ApoloSigner.tar.gz "https://dev.beeresponsive.drsbee.com:3000/static/media/Autentico2.tar.gz"
 tar xvf ApoloSigner.tar.gz -C /tmp/
 osascript -e 'do shell script "sudo cp /tmp/libs/libASEP11.dylib /usr/local/lib/ && sudo cp -rf /tmp/ApoloSigner.app /Applications" with administrator privileges'
 osascript -e "tell app \"System Events\" to display dialog \"$MESSAGE\" with title \"$TITLE\""
